@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Storyboard — The Pitch Visualizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <style>
+    .static-storyboard { padding: 2rem; max-width: 900px; margin: 0 auto; }
+    .back-link { color: #c8a84b; font-family: 'DM Mono', monospace; font-size: 12px; text-decoration: none; display: inline-block; margin-bottom: 1.5rem; letter-spacing: 0.1em; }
+    .back-link:hover { opacity: 0.8; }
+  </style>
+</head>
+<body>
+<div class="static-storyboard">
+  <a href="/" class="back-link">← Back to Editor</a>
+  <div class="header">
+    <p class="eyebrow">Generated Storyboard</p>
+    <h1>Pitch <span class="gold">Storyboard</span></h1>
+  </div>
+  <div class="storyboard" style="margin-top: 2rem;">
+    {% for scene in scenes %}
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-number">SCENE {{ "%02d" | format(loop.index) }} / {{ "%02d" | format(scenes|length) }}</span>
+        <span class="panel-style-tag">{{ style.upper().replace('_', ' ') }}</span>
+      </div>
+      <div class="panel-img-wrap">
+        <img src="{{ scene.image_url }}" alt="Scene {{ loop.index }}" loading="lazy" />
+      </div>
+      <div class="panel-body">
+        <div class="caption-label">Caption</div>
+        <div class="caption-text">{{ scene.caption }}</div>
+        <div class="prompt-section">
+          <div class="prompt-label">Engineered Prompt</div>
+          <div class="prompt-text">{{ scene.prompt }}</div>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <p>No scenes generated yet. <a href="/" style="color:#c8a84b;">Go back and generate one.</a></p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</body>
+</html>

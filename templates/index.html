@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Pitch Visualizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <p class="eyebrow">AI-Powered Narrative Tool</p>
+      <h1>The Pitch <span class="gold">Visualizer</span></h1>
+      <p class="subtitle">Transform your story into a cinematic storyboard — instantly.</p>
+    </header>
+
+    <!-- Film strip decoration -->
+    <div class="filmstrip">
+      {% for _ in range(20) %}<div class="hole"></div>{% endfor %}
+    </div>
+
+    <!-- Input card -->
+    <div class="input-card">
+      <label class="field-label" for="narrative">Narrative Input</label>
+      <textarea
+        id="narrative"
+        placeholder="Paste your pitch narrative — a customer success story, product journey, or sales narrative (3–6 sentences works best)..."
+        rows="5"
+      >Acme Corp was drowning in manual data entry, wasting 30 hours a week on spreadsheets. Their team discovered our AI platform and integrated it in a single afternoon. Within the first month, productivity soared by 60% and errors dropped to near zero. Today, their CFO calls it the best investment of the year, and the team finally has time for the work that matters.</textarea>
+
+      <div class="controls">
+        <div class="style-group">
+          <label class="field-label" for="style">Visual Style</label>
+          <select id="style">
+            {% for key, val in styles.items() %}
+            <option value="{{ key }}">{{ key.replace('_', ' ').title() }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button id="btn-generate" class="btn-generate">Generate Storyboard</button>
+      </div>
+    </div>
+
+    <!-- Status & error bars -->
+    <div id="status-area"></div>
+
+    <!-- Storyboard output -->
+    <div id="storyboard" class="storyboard">
+      <div class="empty-state">
+        <div class="empty-icon">🎬</div>
+        <p>Your storyboard will appear here</p>
+      </div>
+    </div>
+
+  </div><!-- /.app -->
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>
